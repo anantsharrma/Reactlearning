@@ -2,24 +2,22 @@ import React from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import Card from './Card'
 const App = () => {
   const [Userdata, setUserdata] = useState([])
   const [Index, setIndex] = useState(1)
   let printUserdata = <div className='flex justify-center items-center h-screen w-full'>
     <h3 className='text-gray-500 text-sm '>Loading...</h3>
   </div>
+  
   useEffect(() => {
     getData()
   }, [Index])
+
   if (Userdata.length > 0) {
     printUserdata = Userdata.map(
       (elem,idx) => {
-      return <div key={idx}>
-        <a href={elem.url} target='_blank' >
-        <div className='h-40 w-44 overflow-hidden rounded-xl'><img src={elem.download_url} alt={elem.author} className='h-full w-full object-cover' /></div>
-        <h3 className='font-bold text-white text-lg'>{elem.author}</h3>
-        </a>
-      </div>
+      return <Card elem={elem} idx={idx} />
   })}
 
   const getData = async () => {
